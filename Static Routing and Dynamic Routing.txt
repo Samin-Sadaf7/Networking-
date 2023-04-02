@@ -1,0 +1,82 @@
+Static Routing Protocol :
+			
+		R1 		R3
+		
+		R2		R4
+		
+	if R2 and R3 have a path between them 
+		What if the link is broken
+		IN static Routing, we manually change the path
+
+Dynamic Routing: 
+		
+		So, in this case, the route change dynamically when a certain path is not available
+		
+RIP(Routing Information Protocol):
+
+		1.Distance Vector Routing 
+		Network Address 192.168.1.0/24
+				so Broadcast address is 192.168.1.225
+		
+		Instead of sending the packets to everyone, multicast will send it out to certain
+		nodes
+		VLSM(Variable Length Subnet Mask)
+		it uses classless addressing 
+			
+		
+	RIPv1 				RIPv2 				RIPng
+
+1.Broadcast			  1.Multicast 			1.Multicast
+2.No VLSM			  2.VLSM				2.VLSM
+3.ip version 4 		  3.ip version 4 		3.ip version 6
+4.no authentication   4.authenticated 		4.authenticated 
+
+
+Metric : Hop Count (Number of routers to pass to go the destination)
+			
+
+		N2 ---> N3
+
+		N2---R1------R2--N4
+			 |		  |
+			N1		  N3
+		
+From the perspective of R1 ,
+
+		Network name  HopCount
+			N1		    0
+			N2 			0 
+			N3 			1
+			N4			1
+	HopCount:16 means unavialable 
+
+
+Timers : 
+		UpdateTimer: 
+					Default time : 30s 
+					(it is a periodic update 
+								not a trigger update)	
+					Invalid		  	
+					Hold down
+					Flush	
+		       
+		Inconsistenecy happens:
+				Solution : 
+					-Split Horizon (Don't broadcast it to host)
+					-Poison Reverse
+								Pass it as 16 value 
+
+Code for RIP enable:
+		Go to config mode of router
+
+		then :
+
+			*Router rip
+			 version 2
+			network ip address(connected to it) 
+					(all the ip addresses of interfaces)
+
+			//do it for the other routers
+
+			show ip router 
+			// for checking the routing table

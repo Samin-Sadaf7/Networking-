@@ -1,0 +1,62 @@
+Same network address -> connected LAN
+	
+Router-> en -> privileged mode
+Router # Configuration terminal <- config mode
+Router(config) int for 0/1 <- Enter into interface
+Router (Config if) ip address 192.168.1.1 <-Norm First valid address ...(must to have in lab report)
+					255.255.255.0
+Router (Config if) no shutdown	
+			
+	
+Direct connection between two Switch does not work. If two switches have different network address
+then we need a layer 3 device.
+
+Router: layer 3 device
+
+Same network address -> Interface 
+
+->Broadcast Domain<-
+
+
+Router CLI:
+		router->en 
+		
+		? to know the commands
+		
+		Configure command to configure the router
+
+Steps:
+	-> Set up ip address
+	-> in router , set up interface
+exit command to get out
+	ip address 192.168.1.1 255.255.255.0 no shutdown
+
+when we do a ping command 
+		Router is the gateway 
+		if we do not have the same subnet mask , then the packets will be sent to router .
+
+
+Default gateway 
+	If the ip address is not in the same subnet, multicast/broadcast address, it will exit through default gateway.
+
+If the default gateway is not set , the packets will be dropped.
+
+Router to router is connected using serial port
+
+show running-config 
+copy running-config startup-config
+
+Serial Cable --> DCE and DTE
+Clock speed set up 
+	DCE v DTE
+
+Router to router should have same subnet for direct communication
+
+To set up clock rate
+	clock rate value;
+ip route ip address subnet mask  forwarding ip address;
+
+show ip route;<- to see the route
+
+Default route
+		: ip route 0.0.0.0 0.0.0.0 port-number/ip address;

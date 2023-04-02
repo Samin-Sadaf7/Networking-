@@ -1,0 +1,14 @@
+VLAN 
+
+Configure a switch in a way so that every port in diffrent VLAN  
+L3(PC1 PC2 PC3)-->S3											PC1 PC2(A)-->S3\
+					|															| \ 
+					|											PC3(A) PC4-->S2 --Switch
+					|															|	/	
+					o											PC5  -------->S1/
+	A				| \												
+L2(PC4 PC5 PC6)-->S2 S5  Admin's communication 
+					|	/	can be sniffed
+					o
+		A			|
+L1(PC7 PC8) ---->S1

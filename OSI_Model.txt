@@ -1,0 +1,33 @@
+OSI model layers:
+			Top -> Bottom
+			Application layer:
+						How the information is formated aligning with server ,
+					      like sending message via gmail or 
+						message by facebook
+			Presentation Layer
+			Session Layer
+			(--->
+				Application layer, Presentation and Session Layer 
+					 are combined together 
+				it is also called Application Layer 
+											<---)
+
+			Transport Layer: 
+					TCP layer (Transport Control Protocol)
+					Purpose: 
+						-Starting a process of sending
+						-Starting a Receiving processing
+						-Make sure everything going to the process accordingly or not
+						-Responsible for process to process linking
+			
+			Network:
+					
+			Link : Communication between a switch and a computer 
+			Physical Layer: Deals with actual physical objects
+							->Link and physical layer can be merged
+DNS --> Domain Name Service
+                     Purpose: 
+				- get IP address of the domain 
+				- get http service of the particular file
+
+					

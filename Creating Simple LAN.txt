@@ -1,0 +1,20 @@
+		PC1
+		 |
+    PC2-----LAN-----PC3
+		
+Configuration:
+    Network Layer:
+	1. IP address and Subnet mask of PC should be assigned.
+	2. IP address of the PC have to be from the same network ID
+
+ICMP(internet connect manage protocol)
+	-> Ping
+	-> Ipconfig				IP Address : 192.168.0.10
+	-> DHCP			  And Subnet Mask: 255.255.255.0
+								 192.168.0.0
+
+
+				 
+		Switch v Hub
+		
+		-->Switch can flood if the MAC address is not added in the table

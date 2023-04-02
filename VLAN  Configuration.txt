@@ -1,0 +1,105 @@
+VLAN  Configuration:
+			VLAN seperates broadcast domain under a switch
+		Ports in VLAN:
+				1.ACCESS -> Single VLAN
+				2.TRUNC  -> Carry Multiple VLAN
+	Student ={PC1 , PC2, PC5,PC6}
+
+		PC1 	PC2				PC5  	PC6
+			| / 					|	/
+			SW1--------------------SW2
+			|\						|	\
+		PC3		PC4				PC7		PC8
+	
+	Teacher={PC3 ,PC4, PC7, PC8}
+
+	Let's say port 1 to 15 (Only students can communicate)are access  and 16 is TRUNC (can take both
+VLAN student and teacher) . Student and teacher can not communicate for being in different network.
+We need router to do that.
+
+Switch to CLI
+Switch ->en
+Switch ->show vlan (to see tha vlan) (there is a default vlan in cisco packet tracer)
+Switch->config(configure mode on)
+		terminal
+Switch(config)-> vlan 10 (creates a vlan)
+Switch(config-vlan)->name teacher (named the vlan is teacher)
+
+/////////////// go to the interfaces and assign them under the vlan you created///////////////
+Switch ->en
+Switch  -> config terminal
+Switch (config)-> int fa2/0 (interface number fa2/0)
+Switch	(config-if)->switchport mode access
+Switch( config -if)->switchport access vlan 10
+also we can set the range of the ports to configure
+Switch(config)->interface range fa0/1-10
+Switch(config-if-range)->switchport mode access
+Switch(config-if-range)->switchport mode vlan 10
+
+/// create another vlan
+
+Switch ->en
+Switch ->show vlan 
+Switch->config terminal
+Switch(config)-> vlan 20 
+Switch(config-vlan)->name student 
+
+///// another vlan assign to another vlan
+Switch ->en
+Switch  -> config terminal
+Switch(config)->interface range fa0/11-24
+Switch(config-if-range)->switchport mode access
+Switch(config-if-range)->switchport mode vlan 20
+
+/// assign ip address to end devices , do ip route , two vlan can not communicate because 
+they are seperate networks 
+while sending the packets to a different vlan , arp request dropped then.
+
+We need to assign trunc connection between two different switches to make the communicate with each other
+
+switch-> int fa0/1
+switch-if> switchport mode access
+switch-if-> switchport access vlan 10
+switch-if->switchport mode trunk
+switch-if->switchport trunk allowed vlan10-20
+
+show running config command is used to see the configuration
+
+now need to do the same with another switch which is connected via same channel with this router
+by using the same way.
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+
+									Inter Vlan Routing
+
+An interface will be logically divided into multiple subdivision and make an interface or port trunc to communicate between different vlans.
+
+
+make one interface trunk : 
+					enable and configure then do the following: 			
+
+switch-(config)> int Gig0/0
+switch-(config-if)> switchport mode access
+switch-(config-if)> switchport access vlan 10
+switch-if->switchport mode trunk
+switch-if->switchport trunk allowed vlan10-20
+	
+Router(config)> int Gig0/0
+Router(config-if)> no shutdown (turn it on)
+Router(config-if)>interface g0/0.10 (creating and using sub interface)
+Router(config-sub-if)_>encapsulation dotIQ 10 (this subdivision will use the configuration if it is vlan 10 , basically it opens the packets and see the vlan address and if it is 10  it will follow the configuration)
+Router(config-sub-if)>ip address 192.168.20.1 255.255.255.0
+exit
+
+create another subdivision and assign a different vlan 
+
+We need to assign default gateway to send packets else the network will not work.
+
+
+
+ 

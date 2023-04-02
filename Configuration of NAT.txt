@@ -1,0 +1,62 @@
+Configuration of NAT(Network Address Translation) 
+			-Basic idea is to allow multiple devices to use one public ip address
+
+Shortage of IP address: 
+				two types of IP address:
+										-Public IP Address
+										-Private IP address
+Two different networks , 
+ 
+			Basically NAT protocol changes the ip address (Public to private or Private to Public)
+Router with NAT configuration maintain a map to local end devices and as well as the port.
+		
+
+	    			end d2
+					|
+		end d2----switch-----router 1 ---------------------- router 2-----------Server
+					|
+					end d1								
+																	
+Processes:
+			-build topology
+			-assign ip address as well as default gateway
+			- go to router enable mode  then terminal (each interface )to assign ip address accordingly		
+			: command ip address ip addess1  default gateway
+
+			- main task
+			Steps: 
+				1. Create an Access list:
+										#access_list <ACC_ID_NO>  permit/deny match_parameter				                                   <wildcard>
+				2. Pool:
+										# ip nat pool <pool name> <ip range> netmask subnet_mask
+										# ip nat inside source  1 (Access ID No) pool pool1
+
+				*need mention inside and outside in the command line
+
+			Go to router: config terminal 
+				-> access_list 1 permit 10.0.0.0 255.0.0.0 
+
+				->	ip nat pool pool1 50.0.0.1 50.0.0.10  netmask 255.0.0.0 	
+										(starting to ending)
+
+				-> ip nat inside source list 1 pool pool1
+
+				initialize interfaces as inside and outside	
+
+					---> Router-> en->config-> interface int_name-> ip nat inside-> exit
+					---> Router-> en->config-> interface int_name-> ip nat outside-> exit
+
+			On the other side of the router, only one server is present , there is no need to create an access list because only one device is connected
+		command for it would be:
+				# ip nat inside source static ip addess1 netmask subnet mask1 
+			
+			access-list 2 permit 10.0.0.0 0.255.255.255
+			ip nat inside source list 2 pool pool1
+			ping to check whether packets are being sent or not
+			permit option: router numbers, any and host
+			
+			to check how the nat protocol is handled -> router ->end
+															show ip nat	translation
+		
+source:https://www.geeksforgeeks.org/network-address-translation-nat/
+		

@@ -1,0 +1,58 @@
+Configuration of OSPF
+
+1. Open Shortest Path First
+2. Link State Routing Protocol 
+3. Interior Gateway Protocol 				
+
+Dest Lost Next
+N2    3    R2 										
+												Autonomous 
+												 SYSTEM	 			
+												r1-r2
+													O			   o	
+Autonomous Systen (interconnected routers) 	O		O	 O   o     O
+													O		BGP			
+												   IGP		Border Gateway 
+												Interior	Protocol
+												Gateway 	
+												 Protocol
+1.Router has a link State
+Cost: depends on Bandwidth
+cost=10000/Bandwidth; 
+R1 has a link state with R2. LSA( Link State Advertisement) broadcast its information to its neighbouring state.
+2. All the LSAs are stored in LSBD( Link State Database)
+	
+	Steps:
+		-Neighbour
+		-Exchange LSDB
+		-Choose the best path
+	Dijsktra Algorithm is used to calculate the path distance and assign the shortest path.
+	
+			r1->||<-r4		if the link state database of r1 changes, r1 will let its neighbours 
+	 		r2->||<-r5		Know. But then , its neighbour also sends its neighbours. Here, a 
+			r3->||<-r6		situtation occur where traffic is huge due to all the routers being 
+							connected together.
+		In order to solve the issue, a Designation Router ID is assigned. A router will be made as 
+	designated router. Designated router will send all the information. Router ID is assigned to make one  particular ID as Designated Router . Only packets from Designated Router are accepted others are rejected.
+
+In Cisco Packet Tracer,
+	in a router config mode -> ospf-> mention wildcard mask -> mention area 
+Wildcard mask: ip address 192.168.10.0 subnet mask 255.255.255.0
+				so it can be from 192.168.10.0 to 192.168.10.255 
+					wildcard mask  is 0.0.0.255 
+Area: let's assign it 0
+
+router ->en
+router ->config
+router(config>->Router ospf ls
+router(config-ospf)->Network {wildcard mask} area 0
+Use ip route to see the whole connectivity.
+
+If a network goes down, {Suppose we have shut down a router} ,
+			after calling ip route, we can see an updated route with updated path(Shortest)
+between ip addresses.
+In a router, it is possible to assign bandwidth.
+Make a bandwidth slower observe the network.
+go to a particular interface
+router(config-if)->Bandwidth 1 (bandwidth is assigned 1 Kbps)
+router(config-if)->No Bandwidth (bandwidth is unset)				

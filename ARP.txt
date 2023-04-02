@@ -1,0 +1,58 @@
+Observation of ARP events and logical addressing
+
+ARP- Address Resolution Protocol
+
+If the device know the address of destination but does not know the ip address
+
+Network 
+	--> ping 10.220.20.25 (destination ip address)
+		
+		Now it goes to data link layer     [S|D|Payload]->payload
+
+		There is an ARP table 
+			has two columns
+		IP address  MAC address
+						--> it gets updated automatically
+
+Data Link Layer 				--> If The MAC address is not known then ARP protocol will run
+
+	
+Arp -d ( to delete rows from arp table)
+arp -a ( to check all the entries of arp table)
+
+After ping then arp table updates
+
+
+Classful Addressing 
+
+divided into 5 classes 
+	Octets
+     First Byte  Second Byte  Third Byte  Fourth Byte    First Byte   Second Byte  Third Byte Fourth Byte  
+A     0.......*								0-127					
+B     10......*	*						     128-191
+C	110.....*	*          	*				     192-223	
+D	1110....							     224-239	
+E  	11110...							     240-255	
+
+only star marks are taken for subnet mask 
+				Subnet Mask prefix -> Network ID
+
+							class A: 255.0.0.0  	-->2^24
+							class B: 255.255.0.0 	-->2^16
+							class C: 255.255.255.0	-->2^8
+						
+				Default Subnet Mask is there beacuse of classful addressing
+
+			  ( Class D )-> Multicast and  (Class E )->Reserved 
+			
+			0.220.20.25/8 -->mask 8
+			ip address/ mask
+			10.0.00.*** this series is for personal or local use
+		192.168.1.0 --> Network Address
+		192.168.1.255 --> Broadcast Address 
+					-> this two is not usable for personal use
+
+			subnet mask calculation 
+			192.168.1.64/26
+			192.168.1.00 000000
+					192.168.1.63/2
